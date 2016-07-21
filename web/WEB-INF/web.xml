@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>com.epam.prihodko.finaltask.controller.Controller</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/controller</url-pattern>
+        <url-pattern>/jsp/controller</url-pattern>
+    </servlet-mapping>
+
+
+    <description>MySQL</description>
+    <resource-ref>
+        <description>MySqL DB Connection Pool</description>
+        <res-ref-name>jdbc/mydb</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+
+
+    <filter>
+        <display-name>CharsetFilter</display-name>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>com.epam.prihodko.finaltask.controller.filter.CharsetFilter</filter-class>
+        <init-param>
+            <param-name>characterEncoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+    <filter>
+        <display-name>PasswordHashFilter</display-name>
+        <filter-name>PasswordHashFilter</filter-name>
+        <filter-class>com.epam.prihodko.finaltask.controller.filter.PasswordHashFilter</filter-class>
+
+    </filter>
+    <filter-mapping>
+        <filter-name>PasswordHashFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.epam.prihodko.finaltask.controller.listener.ContextServletListener</listener-class>
+    </listener>
+    <jsp-config>
+        <taglib>
+            <taglib-uri>customtags</taglib-uri>
+            <taglib-location>/WEB-INF/tld/taglib.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+</web-app>
